@@ -1,0 +1,30 @@
+{{extend './public.html'}}
+
+{{block 'head'}}
+	<link rel="stylesheet" type="text/css" href="/public/css/blog.css">
+{{/block}}
+{{block 'content'}}
+	<div class="container">
+		<ul class="list-group">
+		    {{ each blogData }}
+		    	<li class="list-group-item">
+					<img src="/public/img/Peppa.jpg" alt="">
+					<span>{{ $value.title }}</span>
+			    </li>
+		    {{ /each }}
+		</ul>
+	</div>
+{{/block}}
+
+{{block 'script'}}
+	<!-- <script>
+		$.ajax({
+			type: "get",
+			url: "/blog",
+			dataType: "json",
+			success: function(data) {
+
+			}
+		})
+	</script> -->
+{{/block}}

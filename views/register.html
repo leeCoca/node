@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>DREAM</title>
+	<link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="icon" href="/public/img/logo.png">
+</head>
+<style>
+	body{
+		background: #f9f9f9;
+		padding: 5% 14px 0 14px;
+	}
+	.logoDream{
+		padding: 32px 0 24px;
+	}
+	.email{
+		font-size: 24px;
+	    font-weight: 300;
+	    letter-spacing: -.5px;
+	    margin-bottom: 15px;
+	}
+	.loginBox{
+		width: 25%;
+		margin: 0 auto;
+		border-radius: 5px;
+    	border: 1px solid #d8dee2;
+    	background-color: #fff;
+	    font-size: 14px;
+	    padding: 20px;
+	}
+	.btn{
+		background-color: #28a745;
+	    background-image: linear-gradient(-180deg,#34d058,#28a745 90%);
+	    color: #fff;
+	    text-align: center;
+    	width: 100%;
+    	margin-top: 30px;
+	}
+	.img-rounded{
+		width: 100px;
+	}
+	#js-flash-container{
+		width: 25%;
+    	margin: 0 auto;
+    	margin-bottom: 20px;
+    	display: none;
+	}
+	.session-authentication .flash {
+	    border-radius: 5px;
+	    border-style: solid;
+	    border-width: 1px;
+	    font-size: 13px;
+	    margin: 0 auto 10px;
+	    padding: 15px 20px;
+	}
+	.flash-full {
+	    border-radius: 0;
+	    border-width: 1px 0;
+	    margin-top: -1px;
+	}
+	.flash-error {
+	    background-color: #ffdce0;
+	    color: #86181d;
+	}
+	.flash-error, .flash-warn {
+	    border-color: rgba(27,31,35,.15);
+	}
+	.flash {
+	    background-color: #ffdce0;
+	    border: 1px solid rgba(27,31,35,.15);
+	    border-radius: 3px;
+	    color: #032f62;
+	    padding: 16px;
+	    position: relative;
+	}
+	body.min-width-0.page-responsive .flash-full .container {
+	    max-width: 980px;
+	    width: 100%;
+	}
+	.session-authentication .flash .container {
+	    width: auto;
+	}
+	.container {
+	    margin-left: auto;
+	    margin-right: auto;
+	    width: 100%;
+	    padding-left: 5px; 
+	}
+	.container:before {
+	    content: "";
+	    display: table;
+	}
+	.session-authentication .flash .flash-close {
+	    height: 40px;
+	}
+	[type=reset], [type=submit], button, html [type=button] {
+	    -webkit-appearance: button;
+	}
+	.flash-close {
+	    -moz-appearance: none;
+	    -webkit-appearance: none;
+	    appearance: none;
+	    background: none;
+	    border: 0;
+	    color: inherit;
+	    cursor: pointer;
+	    float: right;
+	    margin: -16px;
+	    opacity: .6;
+	    padding: 16px;
+	    text-align: center;
+	}
+	svg:not(:root) {
+	    overflow: hidden;
+	}
+	.octicon {
+	    vertical-align: text-bottom;
+	}
+	.octicon {
+	    display: inline-block;
+	    fill: currentColor;
+	    vertical-align: text-top;
+	}
+	.container:after {
+	    clear: both;
+	    content: "";
+	    display: table;
+	}
+	@media screen and (max-width: 1206px) {
+		.loginBox{
+			width: auto;
+		}
+	}
+</style>
+<body>
+	<div class="text-center logoDream"><img src="/public/img/logo.png" alt="" class="img-rounded"></div>
+	<div class="text-center email">Chasing the Dream</div>
+	<div id="js-flash-container">
+		<div class="flash flash-full flash-error">
+		  <div class="container">
+		    <button class="flash-close js-flash-close" type="button" aria-label="Dismiss this message">
+		      <svg class="octicon octicon-x" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z"></path></svg>
+		    </button>
+		    	<span class="message">The mailbox already exists.</span>
+			</div>
+		</div>
+	</div>
+	<div class="loginBox">
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">Email address</label>
+	    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email">
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputPassword1">Password</label>
+	    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+	  </div>
+	  <button type="button" class="btn btn-default">Create An Account</button>
+
+	</div>
+</body>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>
+	$(".btn-default").click(function () {
+		var formData = {
+			name: $("#exampleInputEmail1").val(),
+			password: $("#exampleInputPassword1").val()
+		}
+		console.log(formData);
+		$.ajax({
+			url: "/register",
+			type: "post",
+			data: formData,
+			dataType: "json",
+			success: function (data) {
+				if (data.code == 0) {
+					window.location.href = "/"
+				} else if (data.code == 1) {
+					$("#js-flash-container").show()
+				} else if (data.code == 2) {
+					$(".message").html("server error...")
+					$("#js-flash-container").show()
+				}
+			}
+		})
+	})
+
+	$(".flash-close").click(function () {
+		$("#js-flash-container").hide()
+	})
+</script>
+</html>

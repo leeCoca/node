@@ -1,0 +1,9 @@
+.list-group-item img{
+	width: 30px;
+	border-radius: 3px;
+	display: inline-block;
+}
+.list-group-item span{
+	margin-left: 10px;
+	display: inline-block;
+}

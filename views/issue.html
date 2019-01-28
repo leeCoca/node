@@ -1,0 +1,42 @@
+{{extend './public.html'}}
+
+{{block 'head'}}
+	<link rel="stylesheet" type="text/css" href="/public/css/issue.css">
+{{/block}}
+
+{{block 'content'}}
+	<div class="container">
+		<div class="col-lg-12">
+			<input type="text" class="form-control" placeholder="请输入标题" id="titleInp">
+			<textarea class="form-control" rows="3" id="text"></textarea>
+			<div class="form-group">
+			    <label for="exampleInputFile">File input</label>
+			    <input type="file" id="exampleInputFile">
+			</div>
+		    <button type="button" class="btn btn-primary btn-lg">Submit</button>
+		</div>
+	</div>
+{{/block}}
+
+{{block 'script'}}
+	<script>
+		$(".btn-primary").click(function () {
+			var formData = {
+				title: $("#titleInp").val(),
+				content: $("#text").val()
+			}
+			$.ajax({
+				url: "/issue",
+				type: "post",
+				data: formData,
+				dataType: "json",
+				success: function (data) {
+					console.log(data);
+					if (data.code == 0) {
+						window.location.href = "/blog"
+					}
+				}
+			})
+		})
+	</script>
+{{/block}}

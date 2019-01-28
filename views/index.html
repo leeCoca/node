@@ -1,0 +1,22 @@
+{{extend './public.html'}}
+{{block 'head'}}
+	<link rel="stylesheet" type="text/css" href="/public/css/index.css">
+{{/block}}
+{{block 'content'}}
+	<div class="container svg">
+		<div id="svgContainer"></div>
+	</div>
+{{/block}}
+	
+{{block 'script'}}
+<script>
+	/* Shapes */
+	var svgContainer = document.getElementById('svgContainer');
+	var animItem = bodymovin.loadAnimation({
+	  wrapper: svgContainer,
+	  animType: 'svg',
+	  loop: true,
+	  path: 'https://labs.nearpod.com/bodymovin/demo/markus/halloween/markus.json'
+	});
+</script>
+{{/block}}
